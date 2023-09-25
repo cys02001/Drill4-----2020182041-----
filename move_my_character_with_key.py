@@ -74,4 +74,5 @@ while running:
     x += rl * 5
     y += ud * 5
     delay(0.05)
+    
 close_canvas()
