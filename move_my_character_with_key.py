@@ -6,7 +6,7 @@ tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
 
 def handle_events():
-global running, rl, ud,x, y, movement
+    global running, rl, ud,x, y, movement
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -49,3 +49,29 @@ ud = 0
 movement = 1
 
 while running:
+    clear_canvas()
+    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+
+    new_x = x + rl * 5
+    new_y = y + ud * 5
+
+    if new_x < 0:
+        new_x = 0
+    elif new_x > TUK_WIDTH:
+        new_x = TUK_WIDTH
+    if new_y < 126:
+        new_y = 126
+    elif new_y > TUK_HEIGHT - 126:
+        new_y = TUK_HEIGHT - 126
+
+    x = new_x
+    y = new_y
+
+    character.clip_draw(frame * 126, movement * 126, 126, 126, x, y)
+    update_canvas()
+    handle_events()
+    frame = (frame + 1) % 4
+    x += rl * 5
+    y += ud * 5
+    delay(0.05)
+close_canvas()
